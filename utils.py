@@ -1,0 +1,111 @@
+from djitellopy import Tello
+import cv2
+import numpy as np
+import pygame
+
+def initializeTello():
+    myDrone = Tello()
+    myDrone.connect()
+    print(myDrone.get_battery())
+    return myDrone
+
+
+def telloGetFrame(myDrone, w = 180, h = 120):
+    myFrame = myDrone.get_frame_read()
+    myFrame = myFrame.frame
+    img = cv2.resize(myFrame,(w,h))
+    return img
+
+def findFace(img):
+    faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = faceCascade.detectMultiScale(imgGray,1.2,4)
+
+    myFaceListC = []
+    myFaceListArea = []
+
+    for (x,y,w,h) in faces:
+        cv2.rectangle(img,(x,y),(x+w,y+h), (0,255,0),2)
+        cx = x +w // 2
+        cy = y + h // 2
+        area = w*h
+        myFaceListArea.append(area)
+        myFaceListC.append([cx,cy])
+
+    if len(myFaceListArea) != 0:
+        i = myFaceListArea.index(max(myFaceListArea))
+        return img # [myFaceListC[i], myFaceListArea[i]]
+    else:
+        return None
+
+
+def trackface(myDrone, info, w, pid, pError):
+
+    ## PID
+    error = info[0][0] - w//2
+    speed = pid[0]*error + pid[1] * (error - pError)
+    speed = int(np.clip(speed,-100,100))
+
+    if info[0][0] != 0:
+        myDrone.yaw_velocity = speed
+    else:
+        myDrone.forward_backward_velocity = 0
+        myDrone.left_right_velocity = 0
+        myDrone.up_down_velocity = 0
+        myDrone.yaw_velocity = 0
+        error = 0
+    if myDrone.send_rc_control:
+        myDrone.send_rc_control(myDrone.left_right_velocity,
+                                myDrone.forward_backward_velocity,
+                                myDrone.up_down_velocity,
+                                myDrone.yaw_velocity)
+    return error
+
+def init_joysticks():
+    joystick_list = []
+    pygame.joystick.init()
+    joystick_count = pygame.joystick.get_count()
+    for i in range(joystick_count):
+        joystick_list.append(pygame.joystick.Joystick(i))
+        print("Initialized joystick: ", joystick_list[i].get_name(), "with ID: ", joystick_list[i].get_id())
+
+    return joystick_list
+
+def joystick_get_axes(joystick):
+    num_axes = joystick.get_numaxes()
+    values = [0]*num_axes
+    for i in range(num_axes):
+        values[i] = round(joystick.get_axis(i)*100)
+        # invert second axis only for xbox
+        values[1] = values[1] * -1
+        values[3] = values[3] * -1
+        # include deadband
+        if(abs(values[i]) < 15):
+            values[i] = 0
+    yaw = values[0]
+    up_down = values[3]
+    left_right = values[2]
+    forward_backward = values[1]
+
+    return [yaw, up_down, left_right, forward_backward]
+
+def joystick_get_buttons(joystick):
+
+    num_buttons = joystick.get_numbuttons()
+    but_values = [0]*num_buttons
+    for i in range(num_buttons):
+        but_values[i] = joystick.get_button(i)
+
+    take_off = but_values[0]
+    land = but_values[1]
+    show_frame = but_values[2]
+    return [take_off, land, show_frame]
+
+
+
+
+
+
+
+
+
