@@ -31,13 +31,13 @@ while True:
         if event.type == pygame.JOYAXISMOTION:
             [yaw, up_down, left_right, forward_backward] = joystick_get_axes(XBox_360)
 
-    if take_off is 1 and flying == False:
+    if take_off == 1 and flying == False:
         print('take_off')
         response = giltayDrone.takeoff()
         flying = True
 
 
-    if land is 1 and flying == True:
+    if land == 1 and flying == True:
         print('land')
         giltayDrone.land()
         flying = False
