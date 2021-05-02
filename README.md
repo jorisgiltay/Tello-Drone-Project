@@ -3,6 +3,8 @@ Repository for small projects/ scripts for DJI ryze tello drone.
 
 Currently the Main.py script will try and connect to a Joystick (XBox 360), main loop catches input events and acts according to the buttons:
 
+![Joystick Inputs](Docs/XBox_Controller.png)
+
 * A = Takeoff
 * B = Land
 * Y = Activate Tracking Mode
@@ -12,11 +14,7 @@ Currently the Main.py script will try and connect to a Joystick (XBox 360), main
 2. Do a flip in the pressed direction (only above 60% battery life)
 3. Yaw and move forward/backward
 4. Take a picture and save to ~/Pictures/Picture<#>
-5. Nothing
-6. Nothing
-7. Nothing
-8. Nothing
-9. Nothing
-10. Nothing
 
-![Joystick Inputs](Docs/XBox_Controller.png)
+Rest of the buttons do not have functionality (so far)
+
+
