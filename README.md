@@ -19,9 +19,11 @@ Currently the Main.py script will try and connect to a Joystick (XBox 360), main
 Rest of the buttons do not have functionality (so far)
 
 ## Tracking Mode
-The tracking mode tries to follow the biggest found face and keep it in the middle of the frame. It will also try to keep a certain distance from the face using the bounding box area.
-TODO:
+The tracking mode tries to follow the biggest found face and keep it in the middle of the frame. It will also try to keep a certain distance from the face using the bounding box area:
 
-- [ ] Still needs to be tuned a bit better since if you move to fast the drone will 'lose' you. 
+
+## TODO:
+
+- [ ] Tracking gains (PD) need to be tuned a bit better since if you move to fast the drone will 'lose' you. 
 - [ ] Need to implement moving left and right for short distances (only does yaw now)
 - [ ] Create button to either turn on or off saving the tracked faces (quickly becomes a huge amount of pictures)
