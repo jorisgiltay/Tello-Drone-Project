@@ -6,6 +6,14 @@ Repository for small projects/ scripts for DJI ryze tello drone:
 ## Joystick Functions
 Currently the Main.py script will try and connect to a Joystick (XBox 360), main loop catches input events and acts according to the buttons:
 
+## Dependencies
+You'll need to install the following libraries:
+
+* pygame
+* djitellopy
+* cv2
+* numpy
+
 ![Joystick Inputs](Docs/XBox_Controller.png)
 
 * A = Takeoff
