@@ -1,7 +1,7 @@
 # Tello-Drone-Project
 Repository for small projects/ scripts for DJI ryze tello drone:
 
-<img src="Docs/Drone.jpeg" alt="drawing" width="300"/>
+<img src="Docs/Drone.jpeg" alt="tello" width="400"/>
 
 ## Dependencies
 
@@ -48,4 +48,4 @@ Tracking (realtime):
 - [ ] 3D print a mirror holder to create a 'downview' camera
 - [ ] **Try to make it follow my previously built 'Propeller Car':**
 
-![propcar](Docs/propcar.jfif)
+<img src="Docs/propcar.jfif" alt="propcar" width="400"/>
