@@ -30,6 +30,9 @@ Rest of the buttons do not have functionality (so far)
 ## Tracking Mode
 The tracking mode tries to follow the biggest found face and keep it in the middle of the frame. It will also try to keep a certain distance from the face using the bounding box area:
 
+!["Tracking Example"](Docs/Tracking.jpg)
+
+
 
 ## TODO:
 
