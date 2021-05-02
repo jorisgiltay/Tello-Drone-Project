@@ -1,5 +1,14 @@
 # Tello-Drone-Project
-Repository for small projects/ scripts for DJI ryze tello drone.
+Repository for small projects/ scripts for DJI ryze tello drone:
+
+<img src="Docs/Drone.jpeg" alt="drawing" width="300"/>
+
+## Dependencies
+
+* pygame
+* djitellopy
+* cv2
+* numpy
 
 ## Joystick Functions
 Currently the Main.py script will try and connect to a Joystick (XBox 360), main loop catches input events and acts according to the buttons:
@@ -20,6 +29,9 @@ Rest of the buttons do not have functionality (so far)
 
 ## Tracking Mode
 The tracking mode tries to follow the biggest found face and keep it in the middle of the frame. It will also try to keep a certain distance from the face using the bounding box area:
+
+!["Tracking Example"](Docs/Tracking.jpg)
+
 
 
 ## TODO:
