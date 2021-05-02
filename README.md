@@ -46,4 +46,6 @@ Tracking (realtime):
 - [ ] Use other method for facial tracking either (CNN) or train a HAAR Cascade myself
 - [ ] Implement obstacle avoidance
 - [ ] 3D print a mirror holder to create a 'downview' camera
-- [ ] **Try to make it follow my previously built 'Propeller Car'**
+- [ ] **Try to make it follow my previously built 'Propeller Car':**
+
+![propcar](Docs/propcar.jfif)
