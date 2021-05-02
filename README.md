@@ -32,6 +32,10 @@ The tracking mode tries to follow the biggest found face and keep it in the midd
 
 !["Tracking Example"](Docs/Tracking.jpg)
 
+Tracking (realtime):
+
+!["Tracking"](Docs/tracking_gif.gif)
+
 
 
 ## TODO:
