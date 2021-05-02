@@ -1,7 +1,7 @@
 # Tello-Drone-Project
 Repository for small projects/ scripts for DJI ryze tello drone:
 
-!["Drone"](Docs/Drone.jpeg)
+<img src="Docs/Drone.jpeg" alt="drawing" width="200"/>
 
 ## Joystick Functions
 Currently the Main.py script will try and connect to a Joystick (XBox 360), main loop catches input events and acts according to the buttons:
