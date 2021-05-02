@@ -6,6 +6,10 @@ import pygame
 def initializeTello():
     myDrone = Tello()
     myDrone.connect()
+    myDrone.forward_backward_velocity = 0
+    myDrone.left_right_velocity = 0
+    myDrone.up_down_velocity = 0
+    myDrone.yaw_velocity = 0
     print(myDrone.get_battery())
     return myDrone
 
@@ -26,7 +30,7 @@ def findFace(img):
 
     for (x,y,w,h) in faces:
         cv2.rectangle(img,(x,y),(x+w,y+h), (0,255,0),2)
-        cx = x +w // 2
+        cx = x + w // 2
         cy = y + h // 2
         area = w*h
         myFaceListArea.append(area)
@@ -34,26 +38,37 @@ def findFace(img):
 
     if len(myFaceListArea) != 0:
         i = myFaceListArea.index(max(myFaceListArea))
-        return img # [myFaceListC[i], myFaceListArea[i]]
+        return img , [myFaceListC[i], myFaceListArea[i]]
     else:
-        return None
+        return img , [[0, 0],0]
 
 
-def trackface(myDrone, info, w, pid, pError):
-
+def trackface(myDrone, info, w, h, pid, pError):
+    error = np.array([0, 0, 0])
     ## PID
-    error = info[0][0] - w//2
+    error[0] = info[0][0] - w//2
+    error[1] = info[0][1] - h//2
+    error[2] = info[1] - 15000
+
     speed = pid[0]*error + pid[1] * (error - pError)
-    speed = int(np.clip(speed,-100,100))
+    speed_front_back = pid[2]*error[2] + pid[2] * (error[2] - pError[2])
+    speed[0] = int(np.clip(speed[0],-100,100))
+    speed[1] = -int(np.clip(speed[1],-100,100))
+    speed[2] = -int(np.clip(speed_front_back, -100,100))
+
+
+
 
     if info[0][0] != 0:
-        myDrone.yaw_velocity = speed
+        myDrone.yaw_velocity = round(speed[0])
+        myDrone.up_down_velocity = round(speed[1])
+        myDrone.forward_backward_velocity = round(speed[2])
     else:
         myDrone.forward_backward_velocity = 0
         myDrone.left_right_velocity = 0
         myDrone.up_down_velocity = 0
         myDrone.yaw_velocity = 0
-        error = 0
+        error = np.array([0, 0 , 0])
     if myDrone.send_rc_control:
         myDrone.send_rc_control(myDrone.left_right_velocity,
                                 myDrone.forward_backward_velocity,
@@ -98,12 +113,22 @@ def joystick_get_buttons(joystick):
 
     take_off = but_values[0]
     land = but_values[1]
-    show_frame = but_values[2]
-    return [take_off, land, show_frame]
+    turn_on_track_mode = but_values[3]
+    turn_off_track_mode = but_values[2]
+    snap_image = but_values[6]
 
+    return [take_off, land, turn_on_track_mode, turn_off_track_mode, snap_image]
 
+def joystick_get_hats(joystick):
+    num_hats = joystick.get_numhats()
+    flip_left_right = 0
+    flip_front_back = 0
+    for i in range(num_hats):
+        hat = joystick.get_hat(i)
+        flip_front_back = hat[1]
+        flip_left_right = hat[0]
 
-
+    return flip_left_right, flip_front_back
 
 
 
