@@ -4,19 +4,17 @@ import pygame
 import time
 
 def execute(giltayDrone):
+
     # Initialize Variables
     pid = [0.5, 0.5, 0.0005]
-    startCounter = 0  # NO FLIGHT = 1, FLIGHT = 0
     up_down, yaw, forward_backward, left_right = 0, 0, 0, 0
     turn_off_tracking, turn_on_tracking = 0, 0
     flip_left_right, flip_front_back = 0, 0
-    flying, take_off, land, snap_image, stream = False, False, False, False, False
+    flying, take_off, land, snap_image, stream, track_mode = False, False, False, False, False, False
     trackedFace = None
     w, h = 360, 240
     pError = np.array([0, 0, 0])
-    i = 0
-    k = 0
-    track_mode = 0
+    i, k = 0, 0
     img, pictures, trackedfaces = [], [], []
     info = [[0,0],0]
 
@@ -25,7 +23,7 @@ def execute(giltayDrone):
     Joysticks = init_joysticks()
     XBox_360 = Joysticks[0]
 
-    # Initialize Drone
+    # Initialize Drone (if no stream dont get the frame else it will get stuck)
     try:
         stream = giltayDrone.streamon()
         if stream == False:

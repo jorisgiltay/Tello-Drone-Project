@@ -56,9 +56,6 @@ def trackface(myDrone, info, w, h, pid, pError):
     speed[1] = -int(np.clip(speed[1],-100,100))
     speed[2] = -int(np.clip(speed_front_back, -100,100))
 
-
-
-
     if info[0][0] != 0:
         myDrone.yaw_velocity = round(speed[0])
         myDrone.up_down_velocity = round(speed[1])
