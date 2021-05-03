@@ -1,7 +1,7 @@
 # Tello-Drone-Project
 Repository for small projects/ scripts for DJI ryze tello drone:
 
-<img src="Docs/Drone.jpeg" alt="drawing" width="300"/>
+<img src="Docs/Drone.jpeg" alt="tello" width="400"/>
 
 ## Dependencies
 
@@ -46,4 +46,6 @@ Tracking (realtime):
 - [ ] Use other method for facial tracking either (CNN) or train a HAAR Cascade myself
 - [ ] Implement obstacle avoidance
 - [ ] 3D print a mirror holder to create a 'downview' camera
-- [ ] **Try to make it follow my previously built 'Propeller Car'**
+- [ ] **Try to make it follow my previously built 'Propeller Car':**
+
+<img src="Docs/propcar.jfif" alt="propcar" width="400"/>
