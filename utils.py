@@ -36,6 +36,7 @@ def findFace(img):
         myFaceListArea.append(area)
         myFaceListC.append([cx,cy])
 
+
     if len(myFaceListArea) != 0:
         i = myFaceListArea.index(max(myFaceListArea))
         return img , [myFaceListC[i], myFaceListArea[i]]
@@ -47,8 +48,9 @@ def trackface(myDrone, info, w, h, pid, pError):
     error = np.array([0, 0, 0])
     ## PID
     error[0] = info[0][0] - w//2
-    error[1] = info[0][1] - h//2
+    error[1] = info[0][1] - h//4
     error[2] = info[1] - 15000
+
 
     speed = pid[0]*error + pid[1] * (error - pError)
     speed_front_back = pid[2]*error[2] + pid[2] * (error[2] - pError[2])
@@ -57,9 +59,15 @@ def trackface(myDrone, info, w, h, pid, pError):
     speed[2] = -int(np.clip(speed_front_back, -100,100))
 
     if info[0][0] != 0:
-        myDrone.yaw_velocity = round(speed[0])
-        myDrone.up_down_velocity = round(speed[1])
-        myDrone.forward_backward_velocity = round(speed[2])
+        if(w*h <20000):
+            myDrone.yaw_velocity = 0
+            myDrone.left_right_velocity = int(round(speed[0]))
+        elif (w*h > 20000):
+            myDrone.yaw_velocity = int(round(speed[0]))
+            myDrone.left_right_velocity = 0
+
+        myDrone.up_down_velocity = int(round(speed[1]))
+        myDrone.forward_backward_velocity = int(round(speed[2]))
     else:
         myDrone.forward_backward_velocity = 0
         myDrone.left_right_velocity = 0
@@ -67,10 +75,10 @@ def trackface(myDrone, info, w, h, pid, pError):
         myDrone.yaw_velocity = 0
         error = np.array([0, 0 , 0])
     if myDrone.send_rc_control:
-        myDrone.send_rc_control(myDrone.left_right_velocity,
-                                myDrone.forward_backward_velocity,
-                                myDrone.up_down_velocity,
-                                myDrone.yaw_velocity)
+        myDrone.send_rc_control(left_right_velocity= myDrone.left_right_velocity,
+                                up_down_velocity= myDrone.up_down_velocity,
+                                forward_backward_velocity= myDrone.forward_backward_velocity,
+                                yaw_velocity= myDrone.yaw_velocity)
     return error
 
 def init_joysticks():

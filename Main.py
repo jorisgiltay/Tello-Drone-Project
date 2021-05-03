@@ -37,7 +37,6 @@ def execute(giltayDrone):
     while True:
         #Input handling from the joystick
         for event in pygame.event.get():  # User did something.
-            print('joe')
             if event.type == pygame.JOYBUTTONDOWN:
                 [take_off, land, turn_on_tracking, turn_off_tracking, snap_image] = joystick_get_buttons(XBox_360)
             if event.type == pygame.JOYAXISMOTION:
