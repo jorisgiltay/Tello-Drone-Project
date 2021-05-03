@@ -41,7 +41,7 @@ Tracking (realtime):
 ## TODO:
 
 - [ ] Tracking gains (PD) need to be tuned a bit better since if you move to fast the drone will 'lose' you. 
-- [ ] Need to implement moving left and right for short distances (only does yaw now)
+- [x] Need to implement moving left and right for short distances (only does yaw now)
 - [ ] Create button to either turn on or off saving the tracked faces (quickly becomes a huge amount of pictures)
 - [ ] Use other method for facial tracking either (CNN) or train a HAAR Cascade myself
 - [ ] Implement obstacle avoidance
