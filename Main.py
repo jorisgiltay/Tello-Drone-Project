@@ -6,7 +6,7 @@ import time
 def execute(giltayDrone):
 
     # Initialize Variables
-    pid = [0.5, 0.5, 0.0005]
+    pid = [0.5, 0.5, 0.001]
     up_down, yaw, forward_backward, left_right = 0, 0, 0, 0
     turn_off_tracking, turn_on_tracking = 0, 0
     flip_left_right, flip_front_back = 0, 0
