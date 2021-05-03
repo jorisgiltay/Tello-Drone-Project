@@ -5,7 +5,7 @@ Repository for small projects/ scripts for DJI ryze tello drone:
 
 ## Dependencies
 
-* pygame
+* pygame (make sure you have version 2.0.1, for some reason 1.9.6 has event handling issues..)
 * djitellopy
 * cv2
 * numpy
